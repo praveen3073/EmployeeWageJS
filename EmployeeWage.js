@@ -41,3 +41,101 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     console.log("Total Working Days: " + totalWorkingDays);
     console.log("---------------------------------------");
     
+    // Array helper function
+    // UC7a : totalEmpWage using forEach loop
+    {
+        console.log("UC7a : TotEmpWage using forEach on empDailyWageArray")
+        
+        let totEmpWage = 0;
+        function sum(empWage) {
+            totEmpWage += empWage;
+        }
+
+        empDailyWageArray.forEach(sum);
+        console.log("Daily Wage Array: " + empDailyWageArray.join(", "));
+        console.log("Total Hours: " + totalEmpHrs);
+        console.log("Employee Wage: " + totEmpWage);
+        console.log("Total Working Days: " + totalWorkingDays);
+        console.log("---------------------------------------");
+    }
+    
+    // UC7a : totalEmpWage using reduce
+    {
+        console.log("UC7a : TotEmpWage using reduce on empDailyWageArray")
+    
+        function totalWages(totWages, dailyWage) {
+            return totWages + dailyWage;
+        }
+
+        console.log("Daily Wage Array: " + empDailyWageArray.join(", "));
+        console.log("Total Hours: " + totalEmpHrs);
+        console.log("Employee Wage: " + empDailyWageArray.reduce(totalWages, 0));
+        console.log("Total Working Days: " + totalWorkingDays);
+        console.log("---------------------------------------");
+    }
+
+    // UC7b : Show (day, dailyWage) using Array map helper function
+    console.log("UC7b : Daily Wage Map");
+
+    let dailyCntr = 0;
+    function mapDayWithWage(dailyWage) {
+        dailyCntr++;
+        return dailyCntr + " = " + dailyWage;
+    } 
+
+    let mapDayWithWageArray = empDailyWageArray.map(mapDayWithWage);
+    console.log("Daily Wage Map: " + mapDayWithWageArray.join(", "));
+    console.log("---------------------------------------");
+    
+    // UC7c : Show days when full time wage of 160
+    console.log("UC7c : Daily Wage Filter When Full Time Wage Earned");
+
+    function fullTimeWage(dailyWage) {
+        return dailyWage.includes("160");
+    }
+    
+    let fullDayWageArray = mapDayWithWageArray.filter(fullTimeWage);
+    console.log("Full Day Wage Array: " + fullDayWageArray.join(", "));
+    console.log("---------------------------------------");
+    
+    // UC7d : Find the first occurence when full time wage was earned using find function
+    console.log("UC7d : First Day When Full Time Wage Was Earned");
+
+    function findFullTimeWage(dailyWage) {
+        return dailyWage.includes("160");
+    }
+
+    console.log("First Full Time Wage Day: " + mapDayWithWageArray.find(findFullTimeWage));
+    console.log("---------------------------------------");
+    
+    // UC7e : Check if every element of fullDayWageMap is truely holding full time wage
+    console.log("UC7e : Verify All Elements Of FullDayWageMap Using Every");
+
+    function isAllFullTimeWage(dailyWage) {
+        return dailyWage.includes("160");
+    }
+
+    console.log("FullDayWageMap contains full day wage elements: " + fullDayWageArray.every(isAllFullTimeWage));
+    console.log("---------------------------------------");
+    
+    // UC7f : Check if mapDayWithWage contains any part time wage using some function
+    console.log("UC7f : Verify If MapDayWithWage Contains Part Time Wage");
+
+    function isSomePartTimeWage(dailyWage) {
+        return dailyWage.includes("80");
+    }
+
+    console.log("MapDayWithWage contains any part time wage elements: " + mapDayWithWageArray.some(isSomePartTimeWage));
+    console.log("---------------------------------------");
+    
+    // UC7g : Number of days employee actually worked using reduce function
+    console.log("UC7g : Number Of Days Employee Actually Worked");
+
+    function totalDaysWorked(totalDays, dailyWage) {
+        if(dailyWage > 0)
+            return totalDays + 1;
+        return totalDays;
+    }
+
+    console.log("Total days worked: " + empDailyWageArray.reduce(totalDaysWorked, 0));
+    console.log("---------------------------------------");
