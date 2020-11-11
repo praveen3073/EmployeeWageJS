@@ -26,6 +26,7 @@ function calcDailyWage(empHrs) {
 let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let empDailyWageArray = new Array();
+let empDailyWageMap = new Map();
 
 while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     let empCheck = Math.floor(Math.random() * 100) % 3;
@@ -33,6 +34,7 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     totalEmpHrs += empHrs;
     empDailyWageArray.push(calcDailyWage(empHrs));
     totalWorkingDays++;
+    empDailyWageMap.set(totalWorkingDays, calcDailyWage(empHrs));
 }
     let empWage = totalEmpHrs * WAGE_PER_HOUR;
     console.log("Daily Wage Array: " + empDailyWageArray.join(", "));
@@ -139,3 +141,15 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
 
     console.log("Total days worked: " + empDailyWageArray.reduce(totalDaysWorked, 0));
     console.log("---------------------------------------");
+
+    // UC8 : Get total employee wage from a empDailyWageMap
+    {
+        console.log("UC8: Total Employee Wage From EmpDailyWageMap");
+
+        function totalWages(totalWage, dailyWage) {
+            return totalWage + dailyWage;
+        }
+
+        console.log("Total employee wage: " + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+        console.log("---------------------------------------");
+    }
