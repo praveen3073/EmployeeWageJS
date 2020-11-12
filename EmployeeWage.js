@@ -208,4 +208,39 @@ console.log("---------------------------------------");
 {
     console.log("UC10 : Display Employee Object Array Containing Day, Daily Hours And Daily Wage");
     console.log(empObjectArray.toString());
+    console.log("---------------------------------------");
+}
+
+// UC11a - UC11d Using Object Functions Along With Arrow Functions
+{
+    console.log("UC11a - UC11d Using Object Functions Along With Arrow Functions")
+
+    // UC11a Calculate Total Wages And Hours Using Object Functions And Arrow Functions
+    console.log("\nUC11a : Calculate Total Wages And Hours Using Object Functions And Arrow Functions");
+    let totWages = empObjectArray.filter(empObj => empObj.dailyWage > 0)
+                                 .reduce((totalWages, empObject) => totalWages += empObject.dailyWage, 0);
+    let totHours = empObjectArray.filter(empObj => empObj.dailyHours > 0)
+                                 .reduce((totalHours, empObj) => totalHours += empObj.dailyHours, 0);
+    console.log("Total Wages: " + totWages);
+    console.log("Total Hours: " + totHours);
+
+    // UC11b Show Full Working Days Using ForEach And Object Functions
+    console.log("\nUC11b : Show Full Working Days Using ForEach And Object Functions");
+    process.stdout.write("Full Working Days: ")
+    empObjectArray.filter(empObj => empObj.dailyHours == 8)
+                  .forEach(empObj => process.stdout.write(empObj.toString()));
+    
+    // UC11c Show Part Time Working Days Using Map And Object Functions
+    console.log("\nUC11c : Show Part Time Working Days Using Map And Object Functions");
+    process.stdout.write("Part Time Working Days: ");
+    let partWorkingDaysArray = empObjectArray.filter(empObj => empObj.dailyHours == 4)
+                  .map(empObj => empObj.toString());
+    console.log(partWorkingDaysArray);
+
+    // UC11d Show Non Working Days Using Map Function And Object Function
+    console.log("\nUC11d : Show Non Working Days Using Map Function And Object Function")
+    process.stdout.write("Non Working Days: ");
+    let nonWorkingDaysArray = empObjectArray.filter(empObj => empObj.dailyHours == 0)
+                                            .map(empObj => empObj.toString());
+    console.log(nonWorkingDaysArray);
 }
