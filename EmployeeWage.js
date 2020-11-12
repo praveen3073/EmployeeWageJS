@@ -27,6 +27,7 @@ let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let empDailyWageArray = new Array();
 let empDailyWageMap = new Map();
+let empDailyHrsMap = new Map();
 
 while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     let empCheck = Math.floor(Math.random() * 100) % 3;
@@ -35,6 +36,7 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     empDailyWageArray.push(calcDailyWage(empHrs));
     totalWorkingDays++;
     empDailyWageMap.set(totalWorkingDays, calcDailyWage(empHrs));
+    empDailyHrsMap.set(totalWorkingDays, empHrs);
 }
     let empWage = totalEmpHrs * WAGE_PER_HOUR;
     console.log("Daily Wage Array: " + empDailyWageArray.join(", "));
@@ -151,5 +153,40 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
         }
 
         console.log("Total employee wage: " + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+        console.log("---------------------------------------");
+    }
+
+    // UC9a : Calculate total wage and total hours using arrow functions
+    {
+        console.log("UC9a : Total Wage And Total Hours Using Arrow Functions");
+
+        const findTotal = (totalVal, val) => {return totalVal + val;};
+        let totalHours = Array.from(empDailyHrsMap.values()).reduce(findTotal, 0);
+        let totalWage = Array.from(empDailyWageMap.values()).reduce(findTotal, 0);
+        console.log("Total hours: " + totalHours);
+        console.log("Total wages: " + totalWage);
+        console.log("---------------------------------------");
+    }
+
+    // UC9b : Show Full Working Days, Part Working Days And No Working Days
+    {
+        console.log("UC9b : Show Full Working Days, Part Working Days And No Working Days");
+
+        let fullWorkDaysArray = new Array();
+        let partWorkDaysArray = new Array();
+        let noWorkDaysArray = new Array();
+
+        empDailyHrsMap.forEach( (value, key) => {
+            if(value == 8)
+                fullWorkDaysArray.push(key);
+            else if(value == 4)
+                partWorkDaysArray.push(key);
+            else
+                noWorkDaysArray.push(key);
+        });
+
+        console.log("Full time working days: " + fullWorkDaysArray.join(", "));
+        console.log("Part time working days: " + partWorkDaysArray.join(", "));
+        console.log("No time working days: " + noWorkDaysArray.join(", "));
         console.log("---------------------------------------");
     }
