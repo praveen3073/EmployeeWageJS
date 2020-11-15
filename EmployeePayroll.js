@@ -63,7 +63,7 @@ class EmployeePayrollData {
     }
     set email(email) {
         // Email should be of the format abc(.xyz)@bridgelabz.co(.in)
-        let emailFormatRegex = RegExp("^[a-zA-Z]+(\\.[a-zA-Z]+){0,1}[@]{1}[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+){0,1}")
+        let emailFormatRegex = RegExp("^[a-zA-Z]+(\\.[a-zA-Z_+-]+){0,1}[@]{1}[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+){0,1}")
         if(emailFormatRegex.test(email))
             this._email = email;
         else 
@@ -168,6 +168,14 @@ try{
 // Email Validation: Format should have '.co' mandatory part
 try{
     employeePayrollData2.email = "abc.xyz@bridgelabz";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Format can have '.xyz' part with _, -, +
+try{
+    employeePayrollData2.email = "abc.x*yz@bridgelabz";
     process.stdout.write("Email Updated\n");
 }catch(exception){
     console.error(exception);
