@@ -63,11 +63,12 @@ class EmployeePayrollData {
     }
     set email(email) {
         // Email should be of the format abc(.xyz)@bridgelabz.co(.in)
-        let emailFormatRegex = RegExp("^[a-zA-Z]+(\\.[a-zA-Z_+-]+){0,1}[@]{1}[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+){0,1}")
-        if(emailFormatRegex.test(email))
+        let emailFormatRegex = RegExp("^[a-zA-Z]+(\\.[a-zA-Z_+-]+){0,1}[@]{1}[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+){0,1}");
+        let emailLastOptionalPartRegex = RegExp(".+\\..{2,}");
+        if(emailFormatRegex.test(email) && emailLastOptionalPartRegex.test(email))
             this._email = email;
         else 
-        throw "Email should be of the format abc(.xyz)@bridgelabz.co(.in)"
+        throw "Email should be of the format abc(.xyz)@bridgelabz.co(.in)";
     }
 
     toString() {
@@ -176,6 +177,14 @@ try{
 // Email Validation: Format can have '.xyz' part with _, -, +
 try{
     employeePayrollData2.email = "abc.x*yz@bridgelabz";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Last optional part should have two characters
+try{
+    employeePayrollData2.email = "abc@bridgelabz.co.fg";
     process.stdout.write("Email Updated\n");
 }catch(exception){
     console.error(exception);
