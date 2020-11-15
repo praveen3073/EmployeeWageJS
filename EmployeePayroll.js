@@ -43,6 +43,12 @@ class EmployeePayrollData {
         else throw "Start Date is incorrect";
     }
     set pin(pin){
+        // Pin should not have special character or alphabet in the beginning
+        let pinFirstCharRegex = RegExp("^[0-9]{1}.*$");
+        if(pinFirstCharRegex.test(pin))
+            this._pin = pin;
+        else throw "Pin should not have special character or alphabet in the beginning";
+        
         // Pin length should be 6
         let pinLengthRegex = RegExp("^[0-9]{6}$")
         if(pinLengthRegex.test(pin))
@@ -103,6 +109,13 @@ try{
 // Pin Validation: Should have six characters
 try{
     employeePayrollData2.pin = "12334";
+}catch(exception){
+    console.error(exception);
+}
+
+// Pin Validation: First Character should not be alphabet or special character
+try{
+    employeePayrollData2.pin = "A2334";
 }catch(exception){
     console.error(exception);
 }
