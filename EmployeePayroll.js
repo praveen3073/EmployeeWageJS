@@ -42,6 +42,13 @@ class EmployeePayrollData {
         if(startDate <= currentDate) this._startDate = startDate;
         else throw "Start Date is incorrect";
     }
+    set pin(pin){
+        // Pin length should be 6
+        let pinLengthRegex = RegExp("^[0-9]{6}$")
+        if(pinLengthRegex.test(pin))
+            this._pin = pin;
+        else throw "Pin should have 6 digits";
+    }
 
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric'}
@@ -89,7 +96,13 @@ try{
 // Start Date Validation: Should not be future date
 try{
     employeePayrollData2.startDate = new Date("2024-6-26");
-    process.stdout.write(employeePayrollData2.toString()+"\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Pin Validation: Should have six characters
+try{
+    employeePayrollData2.pin = "12334";
 }catch(exception){
     console.error(exception);
 }
